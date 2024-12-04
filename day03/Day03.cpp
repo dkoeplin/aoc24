@@ -40,30 +40,6 @@ void parse(const std::vector<std::string> &lines, const std::vector<Pattern> &pa
 
 }
 
-int64_t part1(const std::vector<std::string> &lines) {
-    int64_t part1 = 0;
-    Pattern pattern {.regex = mul_regex, .func = [&](const std::smatch &match) {
-        part1 += std::stoi(match[1].str()) * std::stoi(match[2].str());
-    }};
-    parse(lines, {pattern});
-    return part1;
-}
-
-int64_t part2(const std::vector<std::string> &lines) {
-    int64_t part2 = 0;
-    bool enabled = true;
-    Pattern mul_pattern {.regex = mul_regex, .func = [&](const std::smatch &match) {
-        if (enabled) {
-            // Multiplications are skipped if we're in a disabled block
-            part2 += std::stoi(match[1].str()) * std::stoi(match[2].str());
-        }
-    }};
-    Pattern do_pattern = {.regex = do_regex, .func = [&](const std::smatch &){ enabled = true; }};
-    Pattern dont_pattern = {.regex = dont_regex, .func = [&](const std::smatch &){ enabled = false; }};
-    parse(lines, {mul_pattern, do_pattern, dont_pattern});
-    return part2;
-}
-
 int main() {
     std::ifstream file("../data/full/03");
     std::string line;
@@ -71,6 +47,19 @@ int main() {
     while (std::getline(file, line)) {
         lines.push_back(line);
     }
-    std::cout << "Part 1: " << part1(lines) << std::endl;
-    std::cout << "Part 2: " << part2(lines) << std::endl;
+
+    int64_t part1 = 0;
+    int64_t part2 = 0;
+    bool enabled = true;
+    std::vector<Pattern> patterns;
+    patterns.emplace_back(mul_regex, [&](const std::smatch &match) {
+        const int64_t mul = std::stoi(match[1].str()) * std::stoi(match[2].str());
+        part1 += mul;
+        part2 += enabled * mul;
+    });
+    patterns.emplace_back(do_regex, [&](const auto &){ enabled = true; });
+    patterns.emplace_back(dont_regex, [&](const auto &){ enabled = false; });
+    parse(lines, patterns);
+    std::cout << "Part 1: " << part1 << std::endl;
+    std::cout << "Part 2: " << part2 << std::endl;
 }
