@@ -68,7 +68,7 @@ int main() {
             report.push_back(std::stoi(match[0].str()));
             iter = match.suffix().first;
         }
-        // part1 += is_safe(report);
+        part1 += is_safe(report);
         part2 += is_safe(report, /*dampen*/true);
     }
     std::cout << "Part 1: " << part1 << std::endl;
