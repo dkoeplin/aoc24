@@ -14,13 +14,16 @@ set(CMAKE_CXX_FLAGS " \
 -fsanitize=address\
 ")
 
+find_package(nvl)
+
 function(add_day day)
     set(name "day${day}")
     set(file "Day${day}.cpp")
     add_executable(${name} "${name}/${file}")
-    # target_link_libraries(${name} PUBLIC nvl)
+    target_link_libraries(${name} PUBLIC nvl)
 endfunction()
 
 add_day("01")
 add_day("02")
 add_day("03")
+add_day("04")
