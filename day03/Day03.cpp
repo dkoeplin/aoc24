@@ -2,10 +2,6 @@
 #include <iostream>
 #include <regex>
 
-static const std::regex mul_regex ("mul\\(([0-9]{1,3}),([0-9]{1,3})\\)");
-static const std::regex do_regex("do\\(\\)");
-static const std::regex dont_regex("don't\\(\\)");
-
 struct Pattern {
     std::regex regex;
     std::function<void(std::smatch)> func;
@@ -41,6 +37,10 @@ void parse(const std::vector<std::string> &lines, const std::vector<Pattern> &pa
 }
 
 int main() {
+    const std::regex mul_regex ("mul\\(([0-9]{1,3}),([0-9]{1,3})\\)");
+    const std::regex do_regex("do\\(\\)");
+    const std::regex dont_regex("don't\\(\\)");
+
     std::ifstream file("../data/full/03");
     std::string line;
     std::vector<std::string> lines;
