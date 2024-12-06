@@ -54,8 +54,8 @@ struct WalkResult {
     nvl::Set<nvl::Pos<2>> unique;
     bool loop = false;
 };
-WalkResult walk(const nvl::Tensor<2,char> &map) {
-    Guard curr = start(map);
+WalkResult walk(const nvl::Tensor<2,char> &map, const Guard &start) {
+    Guard curr = start;
     WalkResult result;
     while (!result.visited.has(curr) && map.has(curr.pos)) {
         result.visited.insert(curr);
@@ -66,7 +66,7 @@ WalkResult walk(const nvl::Tensor<2,char> &map) {
     return result;
 }
 
-I64 part2(nvl::Tensor<2, char> &map, const WalkResult &part1) {
+I64 part2(nvl::Tensor<2, char> &map, const Guard &start, const WalkResult &part1) {
     I64 part2 = 0;
     // Only check positions along the original route.
     nvl::Set<nvl::Pos<2>> candidates;
@@ -78,7 +78,7 @@ I64 part2(nvl::Tensor<2, char> &map, const WalkResult &part1) {
     }
     for (const auto &pos : candidates) {
         map[pos] = '#';
-        part2 += walk(map).loop;
+        part2 += walk(map, start).loop;
         map[pos] = '.';
     }
     return part2;
@@ -86,7 +86,8 @@ I64 part2(nvl::Tensor<2, char> &map, const WalkResult &part1) {
 
 int main() {
     nvl::Tensor<2,char> map = nvl::matrix_from_file("../data/full/06");
-    const WalkResult part1 = walk(map);
+    const Guard begin = start(map);
+    const WalkResult part1 = walk(map, begin);
     std::cout << "Part 1: " << part1.unique.size() << std::endl;
-    std::cout << "Part 2: " << part2(map, part1) << std::endl;
+    std::cout << "Part 2: " << part2(map, begin, part1) << std::endl;
 }
