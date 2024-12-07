@@ -11,7 +11,7 @@ set(CMAKE_CXX_FLAGS " \
 -Wpedantic \
 -Wshadow \
 -Werror \
--fsanitize=address\
+-fsanitize=address \
 ")
 
 find_package(nvl)
@@ -29,3 +29,4 @@ add_day("03")
 add_day("04")
 add_day("05")
 add_day("06")
+add_day("07")
