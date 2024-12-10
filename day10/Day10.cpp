@@ -1,10 +1,9 @@
 #include <fstream>
 
-#include "nvl/data/Tensor.h"
-
 #include "nvl/data/List.h"
 #include "nvl/data/Map.h"
 #include "nvl/data/Set.h"
+#include "nvl/data/Tensor.h"
 #include "nvl/geo/Tuple.h"
 #include "nvl/time/Clock.h"
 #include "nvl/time/Duration.h"
