@@ -1,5 +1,3 @@
-#include <nvl/material/Bulwark.h>
-
 #include <fstream>
 
 #include "nvl/data/Map.h"
