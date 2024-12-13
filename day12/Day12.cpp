@@ -5,6 +5,8 @@
 #include "nvl/entity/Block.h"
 #include "nvl/geo/Volume.h"
 #include "nvl/macros/Aliases.h"
+#include "nvl/time/Clock.h"
+#include "nvl/time/Duration.h"
 
 using namespace nvl;
 
@@ -29,6 +31,7 @@ pure U64 num_sides(const Range<Ref<Edge<2,I64>>> &edges) {
 
 int main() {
     const auto map = matrix_from_file("../data/full/12");
+    const auto start = Clock::now();
     Map<char, RTree<2,Box<2>>> plots;
     for (const auto i : map.indices()) {
         auto &list = plots[map[i]];
@@ -46,6 +49,8 @@ int main() {
             part2 += area * sides;
         }
     }
+    const auto end = Clock::now();
     std::cout << "Part 1: " << part1 << std::endl;
     std::cout << "Part 2: " << part2 << std::endl;
+    std::cout << "Time: " << Duration(end - start) << std::endl;
 }
