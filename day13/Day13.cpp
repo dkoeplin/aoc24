@@ -42,6 +42,7 @@ struct Machine {
         // a(Ay - AxBy/Bx) + ByPx/Bx = Py
         // a = (Py - PxBy/Bx)/(Ay - AxBy/Bx)
         // a = (PyBx - PxBy)/(AyBx - AxBy)
+        // NOTE: This doesn't account for the case where one of the buttons is a multiple of the other.
         if (auto a = div_if(p[1]*db[0] - p[0]*db[1], da[1]*db[0] - da[0]*db[1])) {
             if (auto b = div_if(p[0] - *a*da[0], db[0])) {
                 return *a * 3 + *b * 1;
@@ -56,7 +57,7 @@ struct Machine {
 };
 
 int main() {
-    std::fstream file ("../data/full/13");
+    std::fstream file ("../data/test/13");
     U64 part1 = 0;
     U64 part2 = 0;
     while (auto machine = Machine::parse(file)) {
