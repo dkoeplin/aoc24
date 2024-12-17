@@ -3,14 +3,12 @@
 #include <queue>
 
 #include "nvl/data/List.h"
+#include "nvl/data/Map.h"
 #include "nvl/data/Set.h"
 #include "nvl/data/SipHash.h"
 #include "nvl/data/Tensor.h"
 #include "nvl/geo/Tuple.h"
-#include "nvl/geo/Face.h"
 #include "nvl/macros/Pure.h"
-#include "nvl/macros/ReturnIf.h"
-#include "nvl/data/Map.h"
 
 using namespace nvl;
 
