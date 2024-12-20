@@ -5,13 +5,14 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(CMAKE_CXX_FLAGS " \
--Ofast \
+-O0 \
 -Wall \
 -Wextra \
 -Wpedantic \
 -Wshadow \
 -Werror \
 ")
+# -Ofast \
 
 find_package(nvl)
 
@@ -38,3 +39,5 @@ add_day("13")
 add_day("14")
 add_day("15")
 add_day("16")
+add_day("17")
+add_day("18")
